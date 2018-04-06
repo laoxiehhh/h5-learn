@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #myCanvas{
+        
+            background-image: url('./1.jpg');
+            background-size: 100% 100%;
+        }
+    
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="300" height="300">
+        <img src="./1.jpg">
+    </canvas>
+    <script>
+        var myCanvas = document.getElementById('myCanvas'),
+            ctx = myCanvas.getContext('2d'),
+            x = myCanvas.offsetLeft,
+            y = myCanvas.offsetTop,
+            nowPoint = {},
+            lastPoint = {};
+        function init() {
+            ctx.fillStyle = '#ccc';
+            ctx.fillRect(0, 0, 300, 300);
+            ctx.globalCompositeOperation = 'destination-out';
+            myCanvas.addEventListener('mousedown', mouseDown, false);
+        }
+        init();
+        function mouseDown(e) {
+            myCanvas.addEventListener('mousemove', mouseMove, false);
+            document.addEventListener('mouseup', mouseUp, false);
+            lastPoint.x = e.clientX - x;
+            lastPoint.y = e.clientY - y; 
+        }
+        function mouseMove(e) {
+            nowPoint.x = e.clientX - x;
+            nowPoint.y = e.clientY - y;
+            ctx.beginPath();
+            ctx.fillStyle = 'red';
+            ctx.moveTo(lastPoint.x, lastPoint.y);
+            ctx.lineTo(nowPoint.x, nowPoint.y);
+            ctx.lineWidth = 40;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            ctx.arc(nowPoint.x, nowPoint.y, 20, 0, Math.PI * 2, 0);
+            ctx.closePath();
+            ctx.fill();
+            lastPoint.x = nowPoint.x;
+            lastPoint.y = nowPoint.y;
+        }
+        function mouseUp() {
+            myCanvas.removeEventListener('mousemove', mouseMove, false);
+            document.removeEventListener('mouseup', mouseUp, false);
+            clear();
+        }
+        function clear() {
+            var data = ctx.getImageData(0, 0, 300, 300).data,
+                len = data.length,
+                num = 0;
+            for (var i = 0; i < len; i += 4) {
+                if (data[i] === 0) {
+                    num ++;
+                }
+            }
+            if (num > len / 4 * 0.7) {
+                ctx.clearRect(0, 0, 300, 300);
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .drag_area{
+            width: 300px;
+            height: 300px;
+            border: 1px solid #000;
+            text-align: center;
+            line-height: 300px;
+            background: #ccc;
+        }
+        .progress{
+            width: 300px;
+            height: 20px;
+            margin-top: 30px;
+            border: 1px solid #000;
+            border-radius: 15px;
+            background: #ccc;
+            overflow: hidden;
+        }
+        .val{
+            width: 0px;
+            height: 20px;
+            border-radius: 15px;
+            background: orange;
+        }
+    </style>
+</head>
+<body>
+    <div class="drag_area">将图片拖拽到此区域</div>
+    <div class="progress">
+        <div class="val" max="300"></div>
+    </div>
+    <span class="num">0%</span>
+
+    <fieldset>
+        <input type="file">
+    </fieldset>
+    <script src="./ajax.js"></script>
+    <script src="./fileReader.js"></script>
+    <script>
+        var oArea = document.getElementsByClassName('drag_area')[0];
+        var loader;
+        var oVal = document.getElementsByClassName('val')[0];
+        var oNum = document.getElementsByClassName('num')[0];
+        oArea.addEventListener('dragover', function (e) {
+            e.preventDefault();
+        }, false);
+        oArea.addEventListener('drop', function (e) {
+            e.preventDefault();
+            // console.log(e.dataTransfer.files);
+            var filer = e.dataTransfer.files[0];
+            loader = new FileLoader(filer, events);
+        }, false);
+        function cb() {
+            console.log(123);
+        }
+        var events = {
+            load: function (data) {
+                console.log('data');
+                // ajax('get', './deal.php', cb, data, true); 向服务器端上传文件数据，由服务器端进行处理
+            },
+            progress: function (percent) {
+                oVal.style.width = percent * 3 + 'px';
+                if (percent <= 100) {
+                    oNum.innerHTML = Math.round(percent) + '%';
+                } else {
+                    oNum.innerHTML = '100%';
+                }
+                
+            },
+            success: function () {
+                console.log('success');
+            }
+        }
+    
+    </script>
+</body>
+</html>

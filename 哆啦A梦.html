@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        path{
+            stroke: #000;
+            fill: transparent;
+        }
+        #path1{
+            fill: blue;
+        }
+        #path2{
+            stroke-width: 15px;
+            stroke: red;
+            stroke-linecap: round;
+        }
+        .ellipse1{
+            fill: #fff;
+            stroke: #000;
+        }
+        .ellipse2{
+            fill: #000;
+        }
+        .circle1{
+            fill: red;
+            stroke: #000;
+        }
+        .ellipse3{
+            fill: #fff;
+        }
+        #path3{
+            fill: transparent;
+        }
+        .circle2{
+            fill: #fff;
+            stroke: #000;
+        }
+        #path4{
+            fill: #fff;
+        }
+        .circle3{
+            fill:tan;
+            stroke: #000;
+        }
+        .ellipse4{
+            fill: #fff;
+            stroke: #000;
+        }
+        #path5{
+            fill: #fff;
+        }
+    </style>
+</head>
+<body>
+    <svg width="500" height="500">
+        <!-- 上半身 -->
+        <path id="path1" d="M 200 250 A 100 100 0 1 1 300 250"></path>
+        <ellipse class="ellipse1" rx="75" ry="60" cx="250" cy="195"></ellipse>
+        <!-- <path id="path2" d="M 190 250 L 310 250"></path> -->
+        <ellipse class="ellipse1" rx="25" ry="30" cx="225" cy="130"></ellipse>
+        <ellipse class="ellipse1" rx="25" ry="30" cx="275" cy="130"></ellipse>
+        <ellipse class="ellipse2" rx="4" ry="6" cx="235" cy="140"></ellipse>
+        <ellipse class="ellipse2" rx="4" ry="6" cx="265" cy="140"></ellipse>
+        <circle class="circle1" r="10" cx="250" cy="158"></circle>
+        <ellipse class="ellipse3" rx="4" ry="5" cx="253" cy="156"></ellipse>
+        <path d="M 250 169 L 250 220"></path>
+        <path id="path3" d="M 215 205 A 50 50 0 0 0 285 205"></path>
+        <path d="M 235 175 L 205 165"></path>
+        <path d="M 235 185 L 205 185"></path>
+        <path d="M 235 195 L 205 205"></path>
+        <path d="M 265 175 L 295 165"></path>
+        <path d="M 265 185 L 295 185"></path>
+        <path d="M 265 195 L 295 205"></path>
+        <!-- 下半身 -->
+        <path id="path1" d="M 185 255 L 155 240 145 260 185 280 185 273 185 360 315 360 315 273 315 280 345 295 355 275 315 255"></path>
+        <circle class="circle2" r="20" cx="145" cy="245"></circle>
+        <circle class="circle2" r="20" cx="360" cy="285"></circle>
+        <path id="path4" d="M 200 255 A 52 52 0 1 0 300 255"></path>
+        <path id="path2" d="M 190 250 L 310 250"></path>
+        <circle class="circle3" r="15" cx="250" cy="265"></circle>
+        <path d="M 243 260 L 257 260"></path>
+        <path d="M 240 265 L 260 265"></path>
+        <circle r="4" cx="250" cy="273"></circle>
+        <path d="M 250 277 L 250 280"></path>
+        <path d="M 225 290 A 25 25 0 1 0 275 290 z"></path>
+        <ellipse class="ellipse4" rx="35" ry="15" cx="205" cy="365"></ellipse>
+        <ellipse class="ellipse4" rx="35" ry="15" cx="295" cy="365"></ellipse>
+        <path id="path5" d="M 238 361 A 12 12 0 1 1 262 361"></path>
+    </svg>
+</body>
+</html>

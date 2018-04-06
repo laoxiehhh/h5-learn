@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>gauss</title>
+	<style>
+		#data{
+			width: 400px;
+			height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<img id="data" src="timg.jpg" alt="">
+	<canvas id="canvas" height="500" width="500"></canvas>
+
+	<script src="gaussFun.js"></script>
+	<script>
+		var oImg = document.getElementById('data');
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d');
+		var oData,newSrc;
+		var worker = new Worker('./gaussFun.js');
+		window.onload = function () {
+			ctx.drawImage(oImg, 0, 0, 400, 300);
+			oData = ctx.getImageData(0, 0, 400, 300);
+			worker.postMessage(oData);
+			worker.onmessage = function (e) {
+				ctx.putImageData(e.data, 0, 0);
+			}	
+		}
+
+		// window.onload = function () {
+		// 	ctx.drawImage(oImg,0,0,400,300);
+		// 	oData = ctx.getImageData(0,0,400,300);
+		// 	newSrc = gaussBlur(oData);
+		// 	ctx.putImageData(newSrc, 0, 0);
+		// }
+	</script>
+</body>
+</html>

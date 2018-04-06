@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul{
+            margin-left: 25px;
+        }
+        ul li{
+            margin-bottom: 10px;
+            width: 200px;
+            list-style: none;
+            border: 1px solid #000;
+            background: #ccc;
+            font-size: 20px;
+            text-align: center;
+        }
+        .wrapper{
+            position: absolute;
+            top: 300px;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            border: 2px solid #000;
+            background: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li draggable="true">1</li>
+        <li draggable="true">2</li>
+        <li draggable="true">3</li>
+        <li draggable="true">4</li>
+        <li draggable="true">5</li>
+    </ul>
+    <div class="wrapper">拖入删除</div>
+    <script>
+        var oLi = document.getElementsByTagName('li');
+        var len = oLi.length;
+        var oUl = document.getElementsByTagName('ul')[0];
+        var oWrap = document.getElementsByClassName('wrapper')[0];
+        function bindEvent() {
+            for (var i = 0; i < len; i ++) {
+                oLi[i].addEventListener('dragstart', function (e) {
+                    var index = getIndex(this);
+                    e.dataTransfer.setData('data', index);
+                }, false);
+                oLi[i].addEventListener('dragover', function (e) {
+                    e.preventDefault();
+                }, false);
+                oLi[i].addEventListener('drop', function (e) {
+                    var index = e.dataTransfer.getData('data');
+                    oUl.insertBefore(oLi[index], this);
+                });
+            }
+            oWrap.addEventListener('dragover', function (e) {
+                e.preventDefault();
+            }, false);
+            oWrap.addEventListener('drop', function (e) {
+                var index = e.dataTransfer.getData('data');
+                oLi[index].remove();
+            }, false);
+        }
+        bindEvent();
+        function getIndex(dom) {
+            for (var i = 0; i < len; i ++) {
+                if (dom === oLi[i]) {
+                    return i;
+                }
+            }
+        }
+    
+    </script>
+</body>
+</html>

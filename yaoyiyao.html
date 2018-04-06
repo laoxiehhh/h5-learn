@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var SHAKE_THRESHOLD = 800;//经过测试得出的合适的值
+        var last_update = 0;
+        var x, y, z, last_x = 0, last_y = 0, last_z = 0;
+        function devicemotionHeader(e) {
+            var acceleration = e.accelerationIncludingGravity;
+            var curTime = new Date().getTime();
+            if ( (curTime - last_update) > 300) {
+                var diffTime = curTime - last_update;
+                last_update = curTime;
+                x = acceleration.x;
+                y = acceleration.y;
+                z = acceleration.z;
+
+                var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+                if (speed > SHAKE_THRESHOLD) {
+                    alert('shake!!');
+                    var oDiv = document.createElement('div');
+                    oDiv.innerText = '123';
+                    document.body.appendChild(oDiv);
+                }
+                last_x = x;
+                last_y = y;
+                last_z = z;
+            }
+        }
+        window.addEventListener('devicemotion', devicemotionHeader, false);
+    </script>
+</body>
+</html>

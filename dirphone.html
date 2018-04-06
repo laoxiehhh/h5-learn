@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>旋转：<span id="alpha">0</span></p>
+    <p>前后：<span id="beta">0</span></p>
+    <p>扭转：<span id="gamma">0</span></p>
+    <p>指向：<span id="heading"></span></p>
+    <script>
+        function DeviceOrientationHandler(e) {
+            var alpha = e.alpha,
+                beta = e.beta,
+                gamma = e.gamma,
+                webkitCompassHeading = e.webkitCompassHeading;
+            if (alpha != null || beta != null || gamma != null) {
+                //判断屏幕方向
+                var g = '';
+                if (gamma > 0) {
+                    g = '向右倾斜' + gamma;
+                } else {
+                    g = '向左倾斜' + gamma;
+                }
+                var b = '';
+                if (beta > 0) {
+                    b = '向前倾斜' + beta;
+                } else {
+                    b = '向后倾斜' + beta;
+                }
+                var head = '';
+                var headNum = Math.round( Math.round(webkitCompassHeading / 45) + 7 ) % 8;
+                switch (headNum) {
+                    case 0 : 
+                        head = '东北';
+                        break;
+                    case 1 : 
+                        head = '东';
+                        break;
+                    case 2 : 
+                        head = '东南';
+                        break;
+                    case 3 : 
+                        head = '南';
+                        break;
+                    case 4 : 
+                        head = '西南';
+                        break;
+                    case 5 : 
+                        head = '西';
+                        break;
+                    case 6 : 
+                        head = '西北';
+                        break;
+                    case 7 : 
+                        head = '北';
+                        break;    
+                }
+                document.getElementById('gamma').innerHTML = g;
+                document.getElementById('beta').innerHTML = b;
+                document.getElementById('alpha').innerHTML = alpha;
+                document.getElementById('heading').innerHTML = head + ' ' + webkitCompassHeading;
+            } else {
+                document.body.innerHTML = "当前浏览器不支持DeviceOrientation";
+            }
+        }
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', DeviceOrientationHandler, false);
+        } else {
+            alert('你的浏览器不支持deviceorientation!!');
+        }
+    
+    
+    </script>
+</body>
+</html>
